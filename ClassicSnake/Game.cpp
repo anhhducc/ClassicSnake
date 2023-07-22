@@ -5,9 +5,10 @@
 #include <deque>
 #include <raymath.h>
 
-extern bool ElementInDeque(Vector2 element, std::deque<Vector2> deque);
-extern int cellCount;
+extern bool ElementInDeque(Vector2 element, std::deque<Vector2> deque);// Function declaration
+extern int cellCount;// Variable declaration
 
+// Constructor: initialize the game and load its sounds
 Game::Game()
 {
     InitAudioDevice();
@@ -15,6 +16,7 @@ Game::Game()
     wallSound = LoadSound("Sounds/wall.mp3");
 }
 
+// Destructor: unload the sounds of the game
 Game::~Game()
 {
     UnloadSound(eatSound);
@@ -22,12 +24,14 @@ Game::~Game()
     CloseAudioDevice();
 }
 
+// Draw the game on the screen
 void Game::Draw()
 {
     food.Draw();
     snake.Draw();
 }
 
+// Update the state of the game
 void Game::Update()
 {
     if (running)
@@ -39,6 +43,7 @@ void Game::Update()
     }
 }
 
+// Check if the snake has collided with the food
 void Game::CheckCollisionWithFood()
 {
     if (Vector2Equals(snake.body[0], food.position))
@@ -50,6 +55,7 @@ void Game::CheckCollisionWithFood()
     }
 }
 
+// Check if the snake has collided with the edges of the screen
 void Game::CheckCollisionWithEdges()
 {
     if (snake.body[0].x == cellCount || snake.body[0].x == -1)
@@ -58,6 +64,7 @@ void Game::CheckCollisionWithEdges()
     }
 }
 
+// Check if the snake has collided with its own tail
 void Game::CheckCollisionWithTail()
 {
     std::deque<Vector2> headlessBody = snake.body;
@@ -68,6 +75,7 @@ void Game::CheckCollisionWithTail()
     }
 }
 
+// End the game and reset its state
 void Game::GameOver()
 {
     snake.Reset();
